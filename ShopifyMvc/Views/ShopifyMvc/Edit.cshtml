@@ -1,0 +1,90 @@
+﻿@*@model ShopifyMvc.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="title" class="control-label"></label>
+                <input asp-for="title" class="form-control" />
+                <span asp-validation-for="title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="price" class="control-label"></label>
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="variants[0].price" class="control-label"></label>
+                <input asp-for="variants[0].price" class="form-control" />
+                <span asp-validation-for="variants[0].price" class="text-danger"></span>
+            </div>*@
+ @*           <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@model List<ShopifyMvc.Models.Product>
+
+<h1>Products</h1>
+
+@if (Model.Count > 0)
+{
+    <form asp-controller="ShopifyMvc" method="post" asp-action="UpdateProducts">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <input type="hidden" name="products[@i].Id" value="@Model[i].Id" />
+                            <input type="text" name="products[@i].ProductId" value="@Model[i].ProductId" />
+                        </td>
+                        <td>
+                            <input type="text" name="products[@i].title" value="@Model[i].title" />
+                        </td>
+                        <td>
+                            <input type="text" name="products[@i].price" value="@Model[i].price" />
+                        </td>
+                        <td>
+                            
+                            <input type="hidden" name="products[@i].variantId" value="@Model[i].variantId" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit">Save</button>
+    </form>
+}
+
+else
+{
+    <p>No documents found.</p>
+}

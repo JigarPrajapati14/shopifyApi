@@ -1,0 +1,52 @@
+﻿@model List<ShopifyMvc.Models.shopify>
+
+@{
+    ViewData["Title"] = "Shopify Products";
+}
+
+<h1>Shopify Products</h1>
+<form asp-controller="ShopifyMvc" asp-action="updateShopify" method="post">
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product ID</th>
+            <th>Title</th>
+            <th>Variant ID</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="updatedProducts[@i].id" value="@Model[i].id" />
+                        @(Model[i]?.id)
+                    </td>
+                    <td>
+                        <input type="hidden" name="updatedProducts[@i].ProductId" value="@Model[i].ProductId" />
+                        @(Model[i]?.ProductId)
+                    </td>
+                    <td>
+                        <input type="hidden" name="updatedProducts[@i].title" value="@Model[i].title" />
+                        @(Model[i]?.title)
+                    </td>
+                    <td>
+                        <input type="hidden" name="updatedProducts[@i].variantId" value="@Model[i].variantId" />
+                        @(Model[i]?.variantId)
+                    </td>
+                    <td>
+                        <input type="hidden" name="updatedProducts[@i].price" value="@Model[i].price" />
+                        @(Model[i]?.price)
+                    </td>
+                    <td>
+                        <a asp-controller="ShopifyMvc" asp-action="Edit" asp-route-id="@Model[i]?.id">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Sync Data</button>
+</form>
